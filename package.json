@@ -1,0 +1,29 @@
+{
+  "name": "test_node_crawlers01",
+  "version": "1.0.0",
+  "description": "openData",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enoch1017/test_node_crawlers01.git"
+  },
+  "keywords": [
+    "nodejs",
+    "crawler"
+  ],
+  "author": "DuDoonoch",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/enoch1017/test_node_crawlers01/issues"
+  },
+  "homepage": "https://github.com/enoch1017/test_node_crawlers01#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "request": "^2.88.2"
+  }
+}
