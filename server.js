@@ -1,15 +1,23 @@
 const express = require("express")
-const url = require("url");
-const mysql = require('mysql');
+const port = process.env.PORT || 8080
+// const url = require("url");
+// const mysql = require('mysql');
 const bodyParser = require("body-parser");
-const moment = require('moment');
 const app = express()
+const rootRouter = express.Router()
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-const Server = https.createServer(_,app).listen(function() {
-  console.log("server opened");
+rootRouter.get("/home",(req,res,next)=>{
+  res.send("home page")
+})
+rootRouter.get("/about",(req,res,next)=>{
+  res.send("about page")
+})
+app.use("/",rootRouter)
+app.listen(port,function() {
+  console.log("server opened at:"+port);
 });
-app.post()
+
 // get -> retrive(select)
 // post -> insert
 // put -> update

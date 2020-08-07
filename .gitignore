@@ -1,3 +1,4 @@
 node_modules
 /Database/dbconfig.js
 token.js
+.vercel
