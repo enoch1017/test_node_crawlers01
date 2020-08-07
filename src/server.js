@@ -1,5 +1,6 @@
 const express = require("express")
 const port = process.env.PORT || 8080
+const weatherCrawler = require("./weatherCrawler");
 // const url = require("url");
 // const mysql = require('mysql');
 const bodyParser = require("body-parser");
