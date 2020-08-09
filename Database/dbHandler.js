@@ -1,7 +1,8 @@
 const mysql = require("mysql");
-const dbconfig = require("./dbconfig");
-module.exports={
-    initialConnect:function(dbconfig){
+//const dbconfig = require("./dbconfig");
+
+module.exports=function Handler(dbconfig){
+    this.initialConnect=function(){
         this.connection = mysql.createConnection(dbconfig);
         this.connection.connect(err=>{
           if(err){
@@ -9,7 +10,10 @@ module.exports={
             setTimeout(()=>{
               this.initialConnect(dbconfig);
             },2000);
-          }
+          }else{
+	  	console.log("success loging");
+		//console.log(this.connection);
+	  }
         });
         this.connection.on('error',(err)=>{
           console.log('db error',err);
@@ -21,30 +25,32 @@ module.exports={
           }
         });
     },
-    retriveData:function(table,query){
+    this.selectData=function(query){
         return new Promise((resolve,reject)=>{
-            let retriveSQL = mysql.format(`Select * from ${table} where countryNumber=?`,query);
-            this.connection.query(retriveSQL,(err,result)=>{
+            let selectSQL = mysql.format(`Select * from weather  where countryNumber=?`,query.countryNumber);
+            this.connection.query(selectSQL,(err,result)=>{
                 if(err)
                     reject(new Error(err.message))
                 resolve(result)
             });
         })
     },
-    insertData:function(table,infoData){
-
-        return new Promise((resolve,reject)=>{
-            let insertSQL = mysql.format(`Insert into ${table} VALUES ?`,infoData);
+    this.insertData=function(table,infoData){
+        //console.log(infoData)
+	    return new Promise((resolve,reject)=>{
+            let insertSQL = mysql.format(`Insert into ${table}(countryName,countryNumber,obsTime,ELEV,WDIR,WDSD,TEMP,HUMD,PRES,R24)VALUES ?`,[infoData]);
             this.connection.query(insertSQL,(err,result)=>{
-                if(err)
+                console.log(err);
+		console.log(result);
+		if(err)
                     reject(new Error(err.message))
-                resolve(result)
+		resolve(result)
             });
         })
     },
-    updateDate:function(){},
-    deleteData:function(){},
-    end:function(){
+    this.updateDate=function(){},
+    this.deleteData=function(){},
+    this.end=function(){
         this.connection.end();
     }
 }
